@@ -13,9 +13,26 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(tsx|ts)$/,
-
-        use: 'ts-loader',
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          // Use `.swcrc` to configure swc
+          loader: 'swc-loader',
+        },
+      },
+      {
+        test: /\.ts$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'swc-loader',
+          options: {
+            jsc: {
+              parser: {
+                syntax: 'typescript',
+              },
+            },
+          },
+        },
       },
     ],
   },
